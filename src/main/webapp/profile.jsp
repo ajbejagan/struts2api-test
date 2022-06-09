@@ -26,13 +26,13 @@
             </nav>
           </header>
           <main class="bg-white px-5 py-5 rounded-md">
-            <h1 class="text-xl text-green-600 font-semibold mb-2.5"><s:property value="user.firstname" />'s Profile</h1>
+            <h1 class="text-xl text-green-600 font-semibold mb-2.5"><s:property value="userBean.firstname" />'s Profile</h1>
             <div class="flex">
               <img class="rounded-md" src="http://placekitten.com/200" alt="">
               <div class="ml-5">
                 <p class="flex items-start">
                   <span class="shrink-0 w-20 text-sm text-gray-500 font-semibold">First name</span>
-                  <span class="text-sm text-gray-800"><s:property value="user.firstname" /></span>
+                  <span class="text-sm text-gray-800"><s:property value="userBean.firstname" /></span>
                 </p>
                 <p class="flex items-start">
                   <span class="shrink-0 w-20 text-sm text-gray-500 font-semibold">Last name</span>
@@ -44,7 +44,7 @@
                 </p>
                 <p class="flex items-start">
                   <span class="shrink-0 w-20 text-sm text-gray-500 font-semibold">Email</span>
-                  <span class="text-sm text-gray-800"><s:property value="user.email" /></span>
+                  <span class="text-sm text-gray-800"><s:property value="userBean.email" /></span>
                 </p>
                 <p class="flex items-start">
                   <span class="shrink-0 w-20 text-sm text-gray-500 font-semibold">Bio</span>
