@@ -15,8 +15,12 @@
         </action>
 
         <action name="register" class="webapp.actions.RegisterAction" method="execute">
+            <interceptor-ref name="defaultStack">
+                <param name="params.excludeParams">.*</param>
+            </interceptor-ref>
             <result name="input">/register.jsp</result>
             <result name="success">/profile.jsp</result>
+            <result name="error">/register.jsp</result>
         </action>
 
     </package>

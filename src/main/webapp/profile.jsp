@@ -32,7 +32,7 @@
               <div class="ml-5">
                 <p class="flex items-start">
                   <span class="shrink-0 w-20 text-sm text-gray-500 font-semibold">First name</span>
-                  <span class="text-sm text-gray-800">John</span>
+                  <span class="text-sm text-gray-800"><s:property value="user.firstname" /></span>
                 </p>
                 <p class="flex items-start">
                   <span class="shrink-0 w-20 text-sm text-gray-500 font-semibold">Last name</span>
@@ -44,7 +44,7 @@
                 </p>
                 <p class="flex items-start">
                   <span class="shrink-0 w-20 text-sm text-gray-500 font-semibold">Email</span>
-                  <span class="text-sm text-gray-800">johnmeow@meowmail.com</span>
+                  <span class="text-sm text-gray-800"><s:property value="user.email" /></span>
                 </p>
                 <p class="flex items-start">
                   <span class="shrink-0 w-20 text-sm text-gray-500 font-semibold">Bio</span>
