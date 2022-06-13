@@ -5,6 +5,13 @@
 <struts>
     <constant name="struts.enable.DynamicMethodInvocation" value="false"/>
     <constant name="struts.devMode" value="true"/>
+    <constant name="struts.convention.action.suffix" value="Controller"/>
+    <constant name="struts.convention.action.mapAllMatches" value="true"/>
+    <constant name="struts.convention.default.parent.package" value="rest-default"/>
+    <constant name="struts.convention.package.locators" value="rest"/>
+    <constant name="struts.mapper.class" value="org.apache.struts2.dispatcher.mapper.PrefixBasedActionMapper" />
+    <constant name="struts.mapper.prefixMapping" value="/api:rest,:struts"/>
+    <constant name="struts.rest.namespace" value="/api" />
 
     <package name="default" namespace="/" extends="struts-default">
 
@@ -25,7 +32,18 @@
             <result name="error">/index.jsp</result>
         </action>
 
+        <action name="news" class="webapp.actions.NewsAction" method="execute">
+            <result name="success">/news.jsp</result>
+        </action>
+
     </package>
+
+    <!-- <package name="api" namespace="/api" extends="rest-default">
+
+        <action name="/news" class="webapp.actions.NewsAction">
+        </action>
+
+    </package> -->
 
     <!-- Add addition packages and configuration here. -->
 </struts>
