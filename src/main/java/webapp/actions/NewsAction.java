@@ -13,6 +13,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class NewsAction extends ActionSupport {
     
     private String API_KEY = "0bf82321290f4c0a8548f8bd19427309";
+    private String searchKeyword;
+    private String sortBy = "date published";
+    private String language = "en";
     private NewsResponse newsResponse;
 
     public String execute() throws Exception {
@@ -24,8 +27,8 @@ public class NewsAction extends ActionSupport {
 
         try {
  
-            URL url = new URL("https://newsapi.org/v2/everything?q=tesla&from=" + currentDate
-                    + "&sortBy=publishedAt&apiKey=" + API_KEY + "&language=en");
+            URL url = new URL("https://newsapi.org/v2/everything?q=" + (searchKeyword != null ? searchKeyword : "today") + "&searchIn=title,description&from=" + currentDate
+                + "&sortBy=" + (sortBy == "date published" ? "publishedAt" : sortBy) + "&language=" + language + "&apiKey=" + API_KEY);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
  
@@ -40,7 +43,6 @@ public class NewsAction extends ActionSupport {
                 ObjectMapper mapper = new ObjectMapper();
                 newsResponse = mapper.readValue(output, NewsResponse.class);
             }
-            System.out.println("NR: " + newsResponse);
             conn.disconnect();
 
         } catch (Exception e) {
@@ -51,6 +53,30 @@ public class NewsAction extends ActionSupport {
 
         return SUCCESS;
 
+    }
+    
+    public String getSearchKeyword() {
+        return searchKeyword;
+    }
+
+    public void setSearchKeyword(String searchKeyword) {
+        this.searchKeyword = searchKeyword;
+    }
+
+    public String getSortBy() {
+        return sortBy;
+    }
+
+    public void setSortBy(String sortBy) {
+        this.sortBy = sortBy;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
     }
 
     public NewsResponse getNewsResponse() {

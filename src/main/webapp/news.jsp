@@ -16,36 +16,58 @@
         }
     </style>
 </head>
-<body class="bg-gray-100">
+<body class="bg-gray-200">
     <div class="xl:max-w-screen-lg flex flex-col items-center justify-center p-5 mx-auto">
-        <div class="w-full text-center bg-blue-500 p-5 rounded-md shadow-md mb-[20px]">
+        <div class="flex flex-row items-center justify-between w-full text-center bg-blue-500 p-5 shadow-md">
             <h1 class="text-2xl text-white font-bold">Today's News</h1>
+            <form action="news" class="flex flex-row items-center">
+                <s:textfield cssClass="w-60 p-2 border border-gray-200 rounded-md mr-[5px]" type="text" name="searchKeyword" placeholder="Search for a topic..." />
+                <s:select
+                    cssClass="p-2 border border-gray-200 rounded-md mr-[5px]"
+                    list="{'date published', 'relevancy', 'popularity'}" 
+                    name="sortBy" 
+                    value="sortBy"
+                />
+                <s:select
+                    cssClass="p-2 border border-gray-200 rounded-md mr-[5px]"
+                    list="{'en', 'es', 'fr'}" 
+                    name="language" 
+                    value="language"
+                />
+                <s:submit cssClass="block w-full text-white font-semibold px-4 py-2 bg-green-500 border border-green-600 rounded-md cursor-pointer" value="Search" />
+            </form>
         </div>
-        <div class="flex flex-wrap items-center justify-center gap-[10px] w-full bg-white p-5 rounded-md shadow-md">
+        <div class="flex flex-wrap items-center justify-center gap-[10px] w-full bg-white p-5 shadow-md">
             <s:iterator value="newsResponse.articles">
-                <div class="w-half self-stretch bg-gray-50 border-b-[5px] border-blue-500 shadow-md">
-                <div class="w-full h-[400px] mb-[10px]">
-                    <img class="w-full h-full object-cover" src="<s:property value="urlToImage"/>" alt="">
-                </div>
-                <div class="p-5">
-                    <h1 class="block text-lg text-blue-500 font-bold mb-[5px]">
-                        <s:property value="title"/>
-                    </h1>
-                    <p class="text-sm text-gray-800 font-semibold mb-[5px]">
-                        <span class="text-gray-400">Author: </span><s:property value="author"/>
-                    </p>
-                    <p class="text-base text-gray-900">
-                        <s:property value="content"/>
-                    </p>
-                </div>
+                <div class="w-half self-stretch bg-gray-100 border-b-[5px] border-blue-500 rounded-md shadow-md overflow-hidden">
+                    <div class="w-full h-[400px] mb-[10px]">
+                        <img class="w-full h-full object-cover" src="<s:property value="urlToImage"/>" alt="">
+                    </div>
+                    <div class="p-5">
+                        <p class="text-xs text-gray-500 font-semibold italic mb-[5px]">
+                            Published at <s:property value="publishedAt"/>
+                        </p>
+                        <h1 class="block text-lg text-blue-500 font-bold mb-[5px]">
+                            <s:property value="title"/>
+                        </h1>
+                        <p class="text-sm text-gray-800 font-semibold mb-[5px]">
+                            <span class="text-gray-400">by </span>
+                            <s:if test="%{author==null}">
+                                Anonymous
+                            </s:if>
+                            <s:else>
+                                <s:property value="author"/>
+                            </s:else>
+                        </p>
+                        <p class="text-base text-gray-900 mb-[8px]">
+                            <s:property value="description"/>
+                        </p>
+                        <s:url value="url" var="readMoreURL" />
+                        <s:a cssClass="text-blue-500 font-semibold italic underline" href="%{readMoreURL}">Read more</s:a>
+                    </div>
                 </div>
             </s:iterator>
         </div>
     </div>
-    <!-- <s:iterator value="newsResponse.articles">
-        <s:property value="title"/>
-        <s:property value="author"/>
-        <s:property value="description"/>
-    </s:iterator> -->
 </body>
 </html>
