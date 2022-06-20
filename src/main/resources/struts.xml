@@ -36,6 +36,10 @@
             <result name="success">/news.jsp</result>
         </action>
 
+        <action name="rickandmorty" class="webapp.actions.CharactersAction" method="execute">
+            <result name="success">/characters.jsp</result>
+        </action>
+
     </package>
 
     <!-- <package name="api" namespace="/api" extends="rest-default">
