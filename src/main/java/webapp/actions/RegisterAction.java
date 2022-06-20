@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.nio.charset.StandardCharsets;
+import java.security.*;
 
 public class RegisterAction extends ActionSupport {
     
@@ -20,7 +22,6 @@ public class RegisterAction extends ActionSupport {
         if (saveToDB()) {
             return SUCCESS;
         } else {
-            errorMessage = "Something went wrong.";
             return ERROR;
         }
 
@@ -50,7 +51,7 @@ public class RegisterAction extends ActionSupport {
                 userBean.getAge() + "', '" +
                 userBean.getEmail() + "', '" +
                 userBean.getUsername() + "', '" +
-                userBean.getPassword() + "')";
+                encryptPassword(userBean.getPassword()) + "')";
                 statement.executeUpdate(insertQuery);
 
                 return true;
@@ -66,6 +67,23 @@ public class RegisterAction extends ActionSupport {
             if (statement != null) try { statement.close();} catch (SQLException ignore) {}
             if (connection != null) try { connection.close();} catch (SQLException ignore) {}
         }
+    }
+
+    public String encryptPassword(String password) throws NoSuchAlgorithmException {
+
+        String encryptedText;
+
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
+        byte[] hash = md.digest(password.getBytes(StandardCharsets.UTF_8));
+        StringBuilder s = new StringBuilder();
+
+        for(int i=0; i<  hash.length; i++) {  
+            s.append(Integer.toString((hash[i] & 0xff) + 0x100, 16).substring(1));  
+        }
+
+        encryptedText = s.toString();
+
+        return encryptedText;
     }
 
     public String getErrorMessage() {

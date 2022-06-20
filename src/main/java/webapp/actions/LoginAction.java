@@ -7,7 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.Connection;                
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.nio.charset.StandardCharsets;
+import java.security.*;
 
 public class LoginAction extends ActionSupport {
 
@@ -23,9 +24,10 @@ public class LoginAction extends ActionSupport {
         }
     }
 
-    public static boolean validate(String username, String password) {  
+    public static boolean validate(String username, String password) throws NoSuchAlgorithmException {  
         
-        boolean status = false;  
+        boolean status = false;
+        String encryptedPassword = encryptPassword(password);
         
         try {
             String URL = "jdbc:mysql://localhost:3306/struts2api?useTimezone=true&serverTimezone=UTC";
@@ -38,7 +40,7 @@ public class LoginAction extends ActionSupport {
         
             PreparedStatement ps = connection.prepareStatement("SELECT * FROM users WHERE username=? AND password=?");
             ps.setString(1, username);
-            ps.setString(2, password);
+            ps.setString(2, encryptedPassword);
 
             ResultSet rs = ps.executeQuery();
             status = rs.next();
@@ -55,6 +57,23 @@ public class LoginAction extends ActionSupport {
         }
 
         return status;
+    }
+
+    public static String encryptPassword(String password) throws NoSuchAlgorithmException {
+
+        String encryptedText;
+
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
+        byte[] hash = md.digest(password.getBytes(StandardCharsets.UTF_8));
+        StringBuilder s = new StringBuilder();
+
+        for(int i=0; i<  hash.length; i++) {  
+            s.append(Integer.toString((hash[i] & 0xff) + 0x100, 16).substring(1));  
+        }
+
+        encryptedText = s.toString();
+
+        return encryptedText;
     }
 
     public String getErrorMessage() {

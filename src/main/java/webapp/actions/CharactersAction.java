@@ -10,16 +10,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class CharactersAction extends ActionSupport {
 
-    // https://rickandmortyapi.com/api/character/?name=rick
     private String query;
+    private int page = 1;
     private CharactersResponse charactersResponse;
 
     public String execute() throws Exception {
 
-        String endpoint = "https://rickandmortyapi.com/api/character";
+        String endpoint = "https://rickandmortyapi.com/api/character/?page=" + page;
 
         if (query != null) {
-            endpoint = endpoint + "/?name=" + query;
+            endpoint = endpoint + "&name=" + query;
         }
 
         System.out.println(endpoint);
@@ -41,6 +41,8 @@ public class CharactersAction extends ActionSupport {
                 ObjectMapper mapper = new ObjectMapper();
                 charactersResponse = mapper.readValue(output, CharactersResponse.class);
             }
+            System.out.println("character response: " + charactersResponse);
+
             conn.disconnect();
 
         } catch (Exception e) {

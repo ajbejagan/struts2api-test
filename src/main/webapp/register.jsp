@@ -17,6 +17,9 @@
     </style>
 </head>
 <body>
+    <p class="invisible">
+      <s:property value="errorMessage"/>
+    </p>
     <main class="flex items-center justify-center min-h-screen bg-gray-200">
       <form action="register" class="flex flex-col items-center justify-center bg-white px-16 py-14 rounded-md shadow-md">
         <h1 class="text-2xl text-green-600 font-bold mb-5">Create Account</h1>

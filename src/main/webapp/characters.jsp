@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Characters</title>
+    <title>Rick&Morty</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style type="text/tailwindcss">
         @layer utilities {
@@ -22,6 +22,13 @@
 </head>
 <body class="bg-neutral-900">
     <div class="w-full lg:max-w-screen-md xl:max-w-screen-lg flex flex-col items-center justify-center mx-auto">
+      <div class="flex flex-row items-center justify-between w-full text-center bg-neutral-800 p-5 shadow-md">
+        <h1 class="text-2xl text-white font-bold">Rick&Morty</h1>
+        <form action="rickandmorty" class="flex flex-row items-center">
+            <s:textfield cssClass="w-60 p-2 border border-gray-200 rounded-md mr-[5px]" type="text" name="query" placeholder="Search for a character..." />
+            <s:submit cssClass="block w-full text-white font-semibold px-4 py-2 bg-blue-500 border border-blue-600 rounded-md cursor-pointer" value="Search" />
+        </form>
+      </div>
       <div class="flex flex-wrap items-center justify-center gap-[10px] w-full p-5">
         <s:iterator value="charactersResponse.results">
           <div class="w-half md:w-third self-stretch bg-neutral-600 rounded-md shadow-md overflow-hidden">
@@ -58,6 +65,9 @@
           </div>
         </s:iterator>
       </div>
+      <!-- <div class="flex items-center justify-center gap-x-[10px]">
+        
+      </div> -->
     </div>
 </body>
 </html>
