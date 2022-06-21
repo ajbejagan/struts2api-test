@@ -22,6 +22,10 @@
                 <li class="font-semibold">
                   <a class="text-gray-900 px-4 py-2 rounded-md" href="#">User List</a>
                 </li>
+                <li class="font-semibold">
+                  <s:url value="https://struts2api-test.hub.loginradius.com/auth.aspx?action=logout&return_url=http://localhost:8080/" var="loginRadius_Logout" />
+                  <s:a class="text-neutral-600 px-4 py-2 border border-neutral-400 rounded-md" href="%{loginRadius_Logout}">Logout</s:a>
+                </li>
               </ul>
             </nav>
           </header>

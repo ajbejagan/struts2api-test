@@ -28,6 +28,14 @@
         </action>
 
         <action name="login" class="webapp.actions.LoginAction" method="execute">
+            <result name="success" type="redirectAction">
+                <param name="actionName">profile</param>
+                <param name="token">${token}</param>
+            </result>
+            <result name="error">/index.jsp</result>
+        </action>
+
+        <action name="profile" class="webapp.actions.ProfileAction" method="execute">
             <result name="success">/profile.jsp</result>
             <result name="error">/index.jsp</result>
         </action>

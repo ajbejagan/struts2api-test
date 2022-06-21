@@ -14,14 +14,18 @@ public class LoginAction extends ActionSupport {
 
     private static User accountBean;
     private String errorMessage;
+    private String token;
 
     public String execute() throws Exception {
-        if (validate(accountBean.getUsername(), accountBean.getPassword())){  
+
+        if (validate(accountBean.getUsername(), accountBean.getPassword())){
+            token = "faketoken";
             return SUCCESS;
-        } else {  
+        } else {
             errorMessage = "Username or password is incorrect.";
-            return ERROR;  
+            return ERROR;
         }
+        
     }
 
     public static boolean validate(String username, String password) throws NoSuchAlgorithmException {  
@@ -76,10 +80,6 @@ public class LoginAction extends ActionSupport {
         return encryptedText;
     }
 
-    public String getErrorMessage() {
-        return errorMessage;
-    }
-    
     public User getAccountBean() {
         return accountBean;
     }
@@ -88,4 +88,16 @@ public class LoginAction extends ActionSupport {
         accountBean = account;
     }
     
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
 }
